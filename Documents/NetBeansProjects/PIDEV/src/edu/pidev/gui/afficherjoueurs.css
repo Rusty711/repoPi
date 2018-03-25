@@ -1,0 +1,44 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+       -fx-background-image:url("resources/images/rus.png");
+
+}
+#nomeq1
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+
+}
+#nomeq2
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+}
+#nomeq3
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+}
+#nomeq4
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+}
+#nomeq5
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+}
+#nomeq6
+{
+     -fx-font-family: "dusha v5";
+    -fx-text-fill: black;
+}
+*
+{
+         -fx-font-family: "dusha v5";
+
+}

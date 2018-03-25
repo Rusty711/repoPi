@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1024.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev.gui.JoueurDetailsController">
+    <stylesheets>
+        <URL value="@joueurdetails.css" />
+    </stylesheets>
+   <children>
+      <ImageView fx:id="image1" fitHeight="322.0" fitWidth="933.0" layoutX="50.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow />
+         </effect></ImageView>
+      <Pane layoutX="50.0" layoutY="310.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="14.0" layoutY="11.0" text="Pays:" />
+            <Label fx:id="pays" layoutX="127.0" layoutY="11.0" text="Label" />
+         </children>
+      </Pane>
+      <Line endX="100.0" layoutX="150.0" layoutY="276.0" opacity="0.63" startX="-100.0" />
+      <Pane layoutX="50.0" layoutY="377.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="14.0" layoutY="8.0" text="Date de naissance:" />
+            <Label fx:id="date" layoutX="129.0" layoutY="11.0" text="Label" />
+         </children>
+      </Pane>
+      <Line endX="100.0" layoutX="151.0" layoutY="310.0" opacity="0.72" startX="-100.0" />
+      <Pane layoutX="50.0" layoutY="344.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="14.0" layoutY="11.0" text="Selections" />
+            <Label fx:id="selections" layoutX="128.0" layoutY="11.0" text="Label" />
+         </children>
+      </Pane>
+      <Line endX="100.0" layoutX="151.0" layoutY="343.0" opacity="0.63" startX="-100.0" />
+      <Line endX="100.0" layoutX="151.0" layoutY="377.0" opacity="0.63" startX="-100.0" />
+      <Pane layoutX="50.0" layoutY="110.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="image2" fitHeight="121.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Circle fill="#262728" layoutX="94.0" layoutY="122.0" opacity="0.56" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="numero" layoutX="83.0" layoutY="106.0" prefHeight="33.0" prefWidth="34.0" text="Label" />
+            <Label fx:id="Nom" layoutX="59.0" layoutY="146.0" prefHeight="33.0" prefWidth="105.0" text="Nom" />
+            <Label fx:id="poste1" layoutX="70.0" layoutY="171.0" prefHeight="17.0" prefWidth="53.0" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="50.0" layoutY="410.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label layoutX="14.0" layoutY="11.0" text="Buts:" />
+            <Label fx:id="buts" layoutX="128.0" layoutY="11.0" text="Label" />
+         </children>
+      </Pane>
+      <Pane layoutX="51.0" layoutY="492.0" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Pane layoutY="1.0" prefHeight="48.0" prefWidth="5.0" style="-fx-background-color: green;" />
+            <Label layoutX="14.0" layoutY="17.0" text="Autres Informations" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Line endX="100.0" layoutX="151.0" layoutY="540.0" startX="-100.0" />
+      <Pane layoutX="51.0" layoutY="541.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Line endX="100.0" layoutX="101.0" layoutY="32.0" startX="-100.0" />
+            <Label layoutX="14.0" layoutY="8.0" text="Poids:" />
+            <Label fx:id="poids" layoutX="124.0" layoutY="8.0" text="Poids:" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="51.0" layoutY="574.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Line endX="100.0" layoutX="100.0" layoutY="33.0" startX="-100.0" />
+            <Label layoutX="14.0" layoutY="8.0" text="Taille:" />
+            <Label fx:id="tailles" layoutX="125.0" layoutY="8.0" text="Taille:" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="51.0" layoutY="607.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Line endX="100.0" layoutX="100.0" layoutY="33.0" startX="-100.0" />
+            <Label layoutX="14.0" layoutY="11.0" text="Lieu Naissance" />
+            <Label fx:id="lieu" layoutX="106.0" layoutY="11.0" text="Lieu de naissance" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="51.0" layoutY="640.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Line endX="100.0" layoutX="100.0" layoutY="33.0" startX="-100.0" />
+            <Label layoutX="14.0" layoutY="11.0" text="Nationalite:" />
+            <Label fx:id="nationalite" layoutX="106.0" layoutY="11.0" text="Nationalite:" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="50.0" layoutY="673.0" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Line endX="100.0" layoutX="100.0" layoutY="33.0" startX="-100.0" />
+            <Label layoutX="14.0" layoutY="11.0" text="Poste:" />
+            <Label fx:id="poste" layoutX="108.0" layoutY="11.0" text="Poste:" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="268.0" layoutY="201.0" prefHeight="242.0" prefWidth="715.0" style="-fx-background-color: white; -fx-border-color: grey;">
+         <children>
+            <Label layoutX="30.0" layoutY="17.0" text="Description" />
+            <Pane layoutY="-2.0" prefHeight="55.0" prefWidth="5.0" style="-fx-background-color: green;" />
+            <Line endX="100.0" layoutX="101.0" layoutY="53.0" startX="-100.0" />
+            <ImageView fx:id="img3" fitHeight="182.0" fitWidth="210.0" layoutX="4.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="description" layoutX="229.0" layoutY="17.0" prefHeight="175.0" prefWidth="498.0" text="Label" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

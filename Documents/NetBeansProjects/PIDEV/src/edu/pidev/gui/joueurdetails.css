@@ -1,0 +1,16 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+       -fx-background-image:url("resources/images/rus.png");
+-fx-font-family: "dusha v5";
+}
+#numero
+{
+  -fx-text-fill: white;
+}
+#poste1
+{
+  -fx-text-fill: green;  
+}
