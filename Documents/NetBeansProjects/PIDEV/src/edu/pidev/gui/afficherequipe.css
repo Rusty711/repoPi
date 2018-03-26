@@ -5,3 +5,8 @@
 .mainFxmlClass {
 
 }
+.button
+{
+           -fx-background-image:url("resources/images/russia.jpg");
+
+}

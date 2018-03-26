@@ -27,6 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -87,6 +88,10 @@ public class AfficherEquipesController implements Initializable {
     private Label nomeq3;
     @FXML
     private ImageView drapeq3;
+    @FXML
+    private Button but1;
+ 
+  
   
 
 
@@ -138,6 +143,8 @@ public class AfficherEquipesController implements Initializable {
             Image im1=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(0).getPhotoEquipe()));
             Image im2=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(0).getDrapeau()));
                     eq1img.setImage(im1);
+                                    but1.setStyle("-fx-background-image: url(C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(0).getDrapeau()+")");
+
                     nomeq1.setText(list.get(0).getNom());
                     drapeq1.setImage(im2);
                           Image im3=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(1).getPhotoEquipe()));
