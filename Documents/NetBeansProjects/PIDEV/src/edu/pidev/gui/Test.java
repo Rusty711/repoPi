@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -19,18 +20,17 @@ public class Test extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AfficherEquipes.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Opening.fxml"));
 
-                Parent root = FXMLLoader.load(getClass().getResource("AfficherEquipes.fxml"));
-                  Scene scene = new Scene(root);
-        
+        Scene scene = new Scene(root);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.show();
-              scene.getStylesheets().add(EquipeController.class.getResource("bootstrap3.css").toExternalForm());
 
-
+        //scene.getStylesheets().add(EquipeController.class.getResource("bootstrap3.css").toExternalForm());
     }
-       public static void main(String[] args) {
+
+    public static void main(String[] args) {
         launch(args);
     }
 }

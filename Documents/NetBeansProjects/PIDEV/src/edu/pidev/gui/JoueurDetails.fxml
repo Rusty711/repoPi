@@ -54,7 +54,7 @@
          <children>
             <ImageView fx:id="image2" fitHeight="121.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <effect>
-                  <DropShadow />
+                  <InnerShadow />
                </effect>
             </ImageView>
             <Circle fill="#262728" layoutX="94.0" layoutY="122.0" opacity="0.56" radius="24.0" stroke="BLACK" strokeType="INSIDE" />

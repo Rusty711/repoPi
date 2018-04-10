@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.List;
 
 /**
@@ -21,150 +22,46 @@ import java.util.List;
  * @author Rusty
  */
 public class JoueurService {
+
     public Connection cnx;
 
     public JoueurService() throws SQLException {
         this.cnx = BDConn.getInstance().getConnection();
     }
-        public void ajouterJoueur(Joueur j) throws SQLException
-    {
-               String requet="Insert into Joueur(nom,prenom,numero,Datedenaissance,LieuNaissance,Taille,Poids,Nationalite,Poste1,Cout,Buts,Selections,ID_Equipe,Participations,Imagejoueur1,ImageJoueur2,ImageJoueur3,ButsMarque,Description) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-           PreparedStatement pst=cnx.prepareStatement(requet);
-           pst.setString(1,j.getNom());
-           pst.setString(2,j.getPrenom());
-           pst.setInt(3,j.getNumero());
-           pst.setDate(4,j.getDateNaissance());
-           pst.setString(5,j.getLieuNaissance());
-           pst.setInt(6,j.getTaille());
-           pst.setInt(7,j.getPoids());
-           pst.setString(8,j.getNationalite());
-           pst.setString(9,j.getPoste1());
-           pst.setInt(10,j.getCout());
-           pst.setInt(11,j.getButs());
-           pst.setInt(12,j.getSelections());
-           pst.setInt(13,j.getIdEquipe().getIdEquipe());
-           pst.setInt(14,j.getParticipations());
-        
-           pst.setString(15,j.getImageJoueur1());
-           pst.setString(16,j.getImageJoueur2());
-           pst.setString(17,j.getImageJoueur3());
-           pst.setInt(18,j.getButsMarque());
-           pst.setString(19,j.getDescription());
-        
-           pst.executeUpdate();
+
+    public void ajouterJoueur(Joueur j) throws SQLException {
+        String requet = "Insert into Joueur(nom,prenom,numero,Datedenaissance,LieuNaissance,Taille,Poids,Nationalite,Poste1,Cout,Buts,Selections,ID_Equipe,Participations,Imagejoueur1,ImageJoueur2,ImageJoueur3,ButsMarque,Description) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement pst = cnx.prepareStatement(requet);
+        pst.setString(1, j.getNom());
+        pst.setString(2, j.getPrenom());
+        pst.setInt(3, j.getNumero());
+        pst.setDate(4, j.getDateNaissance());
+        pst.setString(5, j.getLieuNaissance());
+        pst.setInt(6, j.getTaille());
+        pst.setInt(7, j.getPoids());
+        pst.setString(8, j.getNationalite());
+        pst.setString(9, j.getPoste1());
+        pst.setInt(10, j.getCout());
+        pst.setInt(11, j.getButs());
+        pst.setInt(12, j.getSelections());
+        pst.setInt(13, j.getIdEquipe().getIdEquipe());
+        pst.setInt(14, j.getParticipations());
+
+        pst.setString(15, j.getImageJoueur1());
+        pst.setString(16, j.getImageJoueur2());
+        pst.setString(17, j.getImageJoueur3());
+        pst.setInt(18, j.getButsMarque());
+        pst.setString(19, j.getDescription());
+
+        pst.executeUpdate();
     }
-        public List<Joueur> afficherJoueurs() throws SQLException
-       {
-           List<Joueur> l=new ArrayList();
-            Statement x=cnx.createStatement();
-        ResultSet res=x.executeQuery("select * from Joueur");
-        while (res.next())
-        {
-            Joueur j=new Joueur();
-            j.setNom(res.getString("nom"));
-            j.setPrenom(res.getString("Prenom"));
-            j.setNumero(res.getInt("Numero"));
-            j.setLieuNaissance(res.getString("LieuNaissance"));
-            j.setDateNaissance(res.getDate("Datedenaissance"));
-            j.setTaille(res.getInt("Taille"));
-            j.setPoids(res.getInt("Poids"));
-            j.setNationalite(res.getString("Nationalite"));
-            j.setPoste1(res.getString("Poste1"));
-            j.setCout(res.getInt("Cout"));
-            j.setButs(res.getInt("Buts"));
-            j.setSelections(res.getInt("Selections"));
-            j.setParticipations(res.getInt("Participations"));
-            j.setPied(res.getString("Pied"));
-            j.setImageJoueur1(res.getString("ImageJoueur1"));
-            j.setImageJoueur2(res.getString("ImageJoueur2"));
-            j.setImageJoueur3(res.getString("ImageJoueur3"));
-j.setDescription(res.getString("Description"));
-                Statement d=cnx.createStatement();
-        ResultSet p= d.executeQuery("select * from equipe where IDEquipe="+res.getInt("ID_Equipe"));
-        Equipe e=new Equipe();
-while (p.next())
-{
-    e.setNom(p.getString("Nom"));
-            e.setCapital(p.getString("Capital"));
-            e.setParticipations(p.getInt("Participations"));
-           e.setContinent(p.getString("Continent"));
-           e.setVictoires(p.getInt("Victoires"));
-           e.setEntraineur(p.getString("Entraineur"));
-           e.setClassementFifa(p.getInt("Classementfifa"));
-           e.setMatchesCM(p.getInt("MatchesCM"));
-           e.setButsCM(p.getInt("ButsCM"));
-           e.setMatchVictoires(p.getInt("MatchWins"));
-           e.setMatchDefaites(p.getInt("MatchLosses"));
-           e.setMatchNulles(p.getInt("MatchDraws"));
-           e.setDrapeau(p.getString("Drapeau"));
-           e.setPhotoEquipe(p.getString("PhotoEquipe"));
-           e.setLogoFederation(p.getString("LogoFederation"));
-           e.setGroupe(p.getString("Groupe"));
-           e.setDescription(p.getString("Description"));
-}
 
-        j.setIdEquipe(e);
-            l.add(j);
-            
-        }
-        return l;
-       }
-       public void supprimerJoueur(int id) throws SQLException
-       {
-                      String requet="Delete from joueur where IDJoueur=?";
-           PreparedStatement pst=cnx.prepareStatement(requet);
-           pst.setInt(1,id);
-           pst.executeUpdate();
-       }
-       public void modifierJoueur(Joueur j) throws SQLException
-       {
-           String requete="Update Joueur set nom=?,prenom=?,numero=?,Datedenaissance=?,LieuNaissance=?,Taille=?,Poids=?,Nationalite=?,Poste1=?,Cout=?,Buts=?,Selections=?,ID_Equipe=?,Participations=?,Pied=?,ImageJoueur1=?,ImageJoueur2=?,ImageJoueur3=?,ButsMarque=?,Description=? where IDJoueur=?";
-                      PreparedStatement pst=cnx.prepareStatement(requete);
-                              pst.setString(1,j.getNom());
-           pst.setString(2,j.getPrenom());
-           pst.setInt(3,j.getNumero());
-           pst.setDate(4,j.getDateNaissance());
-           pst.setString(5,j.getLieuNaissance());
-           pst.setInt(6,j.getTaille());
-           pst.setInt(7,j.getPoids());
-           pst.setString(8,j.getNationalite());
-           pst.setString(9,j.getPoste1());
-           pst.setInt(10,j.getCout());
-           pst.setInt(11,j.getButs());
-           pst.setInt(12,j.getSelections());
-           pst.setInt(13,j.getIdEquipe().getIdEquipe());
-           pst.setInt(14,j.getParticipations());
-           pst.setString(15,j.getPied());
-           pst.setString(16,j.getImageJoueur1());
-           pst.setString(17,j.getImageJoueur2());
-           pst.setString(18,j.getImageJoueur3());
-           pst.setInt(19,j.getButsMarque());
-           pst.setString(20,j.getDescription());
-           pst.setInt(21,j.getIdJoueur());
-           pst.executeUpdate();
-
-       }
-       public List<Joueur> afficherParEquipe(String nom) throws SQLException
-       {
-           int id=0;
-             List<Equipe> ll=new ArrayList();
-            Statement x=cnx.createStatement();
-       String requete=("select * from Equipe where nom=?");
-                  PreparedStatement pst=cnx.prepareStatement(requete);
-              pst.setString(1,nom);
-              ResultSet ress=pst.executeQuery();
-              while (ress.next())
-              {
-                  id=ress.getInt("IDEquipe");
-              }
-              List<Joueur> l=new ArrayList();
-       String requet=("select * from Joueur where ID_Equipe=?");
-                  PreparedStatement pstt=cnx.prepareStatement(requet);
-              pstt.setInt(1,id);
-              ResultSet res=pstt.executeQuery();
-               while (res.next())
-              {
-                   Joueur j=new Joueur();
+    public List<Joueur> afficherJoueurs() throws SQLException {
+        List<Joueur> l = new ArrayList();
+        Statement x = cnx.createStatement();
+        ResultSet res = x.executeQuery("select * from Joueur");
+        while (res.next()) {
+            Joueur j = new Joueur();
             j.setNom(res.getString("nom"));
             j.setPrenom(res.getString("Prenom"));
             j.setNumero(res.getInt("Numero"));
@@ -183,34 +80,314 @@ while (p.next())
             j.setImageJoueur2(res.getString("ImageJoueur2"));
             j.setImageJoueur3(res.getString("ImageJoueur3"));
             j.setDescription(res.getString("Description"));
-                          Statement d=cnx.createStatement();
-        ResultSet p= d.executeQuery("select * from equipe where IDEquipe="+res.getInt("ID_Equipe"));
-        Equipe e=new Equipe();
-while (p.next())
-{
-    e.setNom(p.getString("Nom"));
-            e.setCapital(p.getString("Capital"));
-            e.setParticipations(p.getInt("Participations"));
-           e.setContinent(p.getString("Continent"));
-           e.setVictoires(p.getInt("Victoires"));
-           e.setEntraineur(p.getString("Entraineur"));
-           e.setClassementFifa(p.getInt("Classementfifa"));
-           e.setMatchesCM(p.getInt("MatchesCM"));
-           e.setButsCM(p.getInt("ButsCM"));
-           e.setMatchVictoires(p.getInt("MatchWins"));
-           e.setMatchDefaites(p.getInt("MatchLosses"));
-           e.setMatchNulles(p.getInt("MatchDraws"));
-           e.setDrapeau(p.getString("Drapeau"));
-           e.setPhotoEquipe(p.getString("PhotoEquipe"));
-           e.setLogoFederation(p.getString("LogoFederation"));
-           e.setGroupe(p.getString("Groupe"));
-           e.setDescription(p.getString("Description"));
-}
-j.setIdEquipe(e);
-l.add(j);
-              }
-               return l;
-       }
-       
-    
+            Statement d = cnx.createStatement();
+            ResultSet p = d.executeQuery("select * from equipe where IDEquipe=" + res.getInt("ID_Equipe"));
+            Equipe e = new Equipe();
+            while (p.next()) {
+                e.setNom(p.getString("Nom"));
+                e.setCapital(p.getString("Capital"));
+                e.setParticipations(p.getInt("Participations"));
+                e.setContinent(p.getString("Continent"));
+                e.setVictoires(p.getInt("Victoires"));
+                e.setEntraineur(p.getString("Entraineur"));
+                e.setClassementFifa(p.getInt("Classementfifa"));
+                e.setMatchesCM(p.getInt("MatchesCM"));
+                e.setButsCM(p.getInt("ButsCM"));
+                e.setMatchVictoires(p.getInt("MatchWins"));
+                e.setMatchDefaites(p.getInt("MatchLosses"));
+                e.setMatchNulles(p.getInt("MatchDraws"));
+                e.setDrapeau(p.getString("Drapeau"));
+                e.setPhotoEquipe(p.getString("PhotoEquipe"));
+                e.setLogoFederation(p.getString("LogoFederation"));
+                e.setGroupe(p.getString("Groupe"));
+                e.setDescription(p.getString("Description"));
+            }
+
+            j.setIdEquipe(e);
+            l.add(j);
+
+        }
+        return l;
+    }
+
+    public void supprimerJoueur(int id) throws SQLException {
+        String requet = "Delete from joueur where IDJoueur=?";
+        PreparedStatement pst = cnx.prepareStatement(requet);
+        pst.setInt(1, id);
+        pst.executeUpdate();
+    }
+
+    public void modifierJoueur(Joueur j) throws SQLException {
+        String requete = "Update Joueur set nom=?,prenom=?,numero=?,Datedenaissance=?,LieuNaissance=?,Taille=?,Poids=?,Nationalite=?,Poste1=?,Cout=?,Buts=?,Selections=?,ID_Equipe=?,Participations=?,Pied=?,ImageJoueur1=?,ImageJoueur2=?,ImageJoueur3=?,ButsMarque=?,Description=? where IDJoueur=?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, j.getNom());
+        pst.setString(2, j.getPrenom());
+        pst.setInt(3, j.getNumero());
+        pst.setDate(4, j.getDateNaissance());
+        pst.setString(5, j.getLieuNaissance());
+        pst.setInt(6, j.getTaille());
+        pst.setInt(7, j.getPoids());
+        pst.setString(8, j.getNationalite());
+        pst.setString(9, j.getPoste1());
+        pst.setInt(10, j.getCout());
+        pst.setInt(11, j.getButs());
+        pst.setInt(12, j.getSelections());
+        pst.setInt(13, j.getIdEquipe().getIdEquipe());
+        pst.setInt(14, j.getParticipations());
+        pst.setString(15, j.getPied());
+        pst.setString(16, j.getImageJoueur1());
+        pst.setString(17, j.getImageJoueur2());
+        pst.setString(18, j.getImageJoueur3());
+        pst.setInt(19, j.getButsMarque());
+        pst.setString(20, j.getDescription());
+        pst.setInt(21, j.getIdJoueur());
+        pst.executeUpdate();
+
+    }
+
+    public List<Joueur> afficherParEquipe(String nom) throws SQLException {
+        int id = 0;
+        List<Equipe> ll = new ArrayList();
+        Statement x = cnx.createStatement();
+        String requete = ("select * from Equipe where nom=?");
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, nom);
+        ResultSet ress = pst.executeQuery();
+        while (ress.next()) {
+            id = ress.getInt("IDEquipe");
+        }
+        List<Joueur> l = new ArrayList();
+        String requet = ("select * from Joueur where ID_Equipe=?");
+        PreparedStatement pstt = cnx.prepareStatement(requet);
+        pstt.setInt(1, id);
+        ResultSet res = pstt.executeQuery();
+        while (res.next()) {
+            Joueur j = new Joueur();
+            j.setNom(res.getString("nom"));
+            j.setPrenom(res.getString("Prenom"));
+            j.setNumero(res.getInt("Numero"));
+            j.setLieuNaissance(res.getString("LieuNaissance"));
+            j.setDateNaissance(res.getDate("Datedenaissance"));
+            j.setTaille(res.getInt("Taille"));
+            j.setPoids(res.getInt("Poids"));
+            j.setNationalite(res.getString("Nationalite"));
+            j.setPoste1(res.getString("Poste1"));
+            j.setCout(res.getInt("Cout"));
+            j.setButs(res.getInt("Buts"));
+            j.setSelections(res.getInt("Selections"));
+            j.setParticipations(res.getInt("Participations"));
+            j.setPied(res.getString("Pied"));
+            j.setImageJoueur1(res.getString("ImageJoueur1"));
+            j.setImageJoueur2(res.getString("ImageJoueur2"));
+            j.setImageJoueur3(res.getString("ImageJoueur3"));
+            j.setDescription(res.getString("Description"));
+            Statement d = cnx.createStatement();
+            ResultSet p = d.executeQuery("select * from equipe where IDEquipe=" + res.getInt("ID_Equipe"));
+            Equipe e = new Equipe();
+            while (p.next()) {
+                e.setNom(p.getString("Nom"));
+                e.setCapital(p.getString("Capital"));
+                e.setParticipations(p.getInt("Participations"));
+                e.setContinent(p.getString("Continent"));
+                e.setVictoires(p.getInt("Victoires"));
+                e.setEntraineur(p.getString("Entraineur"));
+                e.setClassementFifa(p.getInt("Classementfifa"));
+                e.setMatchesCM(p.getInt("MatchesCM"));
+                e.setButsCM(p.getInt("ButsCM"));
+                e.setMatchVictoires(p.getInt("MatchWins"));
+                e.setMatchDefaites(p.getInt("MatchLosses"));
+                e.setMatchNulles(p.getInt("MatchDraws"));
+                e.setDrapeau(p.getString("Drapeau"));
+                e.setPhotoEquipe(p.getString("PhotoEquipe"));
+                e.setLogoFederation(p.getString("LogoFederation"));
+                e.setGroupe(p.getString("Groupe"));
+                e.setDescription(p.getString("Description"));
+            }
+            j.setIdEquipe(e);
+            l.add(j);
+        }
+        return l;
+    }
+
+    public int JoueurCout(String nom) throws SQLException {
+        int cout = 0;
+        String requete = "select cout from joueur where nom=?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(0, nom);
+        ResultSet a = pst.executeQuery(requete);
+        while (a.next()) {
+            cout = a.getInt("cout");
+        }
+        return cout;
+    }
+
+    public List<Joueur> JoueurPoste(String Poste) throws SQLException {
+        List<Joueur> l = new ArrayList();
+        String requete = "select IDJoueur,nom,prenom,cout,ID_Equipe,Poste1 from joueur where Poste1=?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, Poste);
+        ResultSet res = pst.executeQuery();
+        while (res.next()) {
+            Joueur j = new Joueur();
+            j.setIdJoueur(res.getInt("IDJoueur"));
+            j.setNom(res.getString("nom"));
+            j.setPrenom(res.getString("Prenom"));
+            j.setCout(res.getInt("Cout"));
+            j.setPoste1(res.getString("Poste1"));
+            Statement d = cnx.createStatement();
+            ResultSet p = d.executeQuery("select * from equipe where IDEquipe=" + res.getInt("ID_Equipe"));
+            Equipe e = new Equipe();
+            while (p.next()) {
+                e.setNom(p.getString("Nom"));
+                e.setCapital(p.getString("Capital"));
+                e.setParticipations(p.getInt("Participations"));
+                e.setContinent(p.getString("Continent"));
+                e.setVictoires(p.getInt("Victoires"));
+                e.setEntraineur(p.getString("Entraineur"));
+                e.setClassementFifa(p.getInt("Classementfifa"));
+                e.setMatchesCM(p.getInt("MatchesCM"));
+                e.setButsCM(p.getInt("ButsCM"));
+                e.setMatchVictoires(p.getInt("MatchWins"));
+                e.setMatchDefaites(p.getInt("MatchLosses"));
+                e.setMatchNulles(p.getInt("MatchDraws"));
+                e.setDrapeau(p.getString("Drapeau"));
+                e.setPhotoEquipe(p.getString("PhotoEquipe"));
+                e.setLogoFederation(p.getString("LogoFederation"));
+                e.setGroupe(p.getString("Groupe"));
+                e.setDescription(p.getString("Description"));
+            }
+
+            j.setIdEquipe(e);
+            l.add(j);
+        }
+        return l;
+    }
+
+    public String ImageJoueur(String nom, String Prenom) throws SQLException {
+        String image = "";
+        String requete = "select imageJoueur1 from joueur where nom=? and prenom=?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, nom);
+        pst.setString(2, Prenom);
+        ResultSet res = pst.executeQuery();
+        while (res.next()) {
+            image = res.getString("imageJoueur1");
+        }
+        return image;
+    }
+
+    public Joueur chercherJoueur(int id) throws SQLException {
+        String requete = "select * from Joueur where IDJoueur=?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, id);
+        ResultSet res = pst.executeQuery();
+        Joueur j = new Joueur();
+
+        while (res.next()) {
+            j.setIdJoueur(res.getInt("IDJoueur"));
+            j.setNom(res.getString("nom"));
+            j.setPrenom(res.getString("Prenom"));
+            j.setNumero(res.getInt("Numero"));
+            j.setLieuNaissance(res.getString("LieuNaissance"));
+            j.setDateNaissance(res.getDate("Datedenaissance"));
+            j.setTaille(res.getInt("Taille"));
+            j.setPoids(res.getInt("Poids"));
+            j.setNationalite(res.getString("Nationalite"));
+            j.setPoste1(res.getString("Poste1"));
+            j.setCout(res.getInt("Cout"));
+            j.setButs(res.getInt("Buts"));
+            j.setSelections(res.getInt("Selections"));
+            j.setParticipations(res.getInt("Participations"));
+            j.setPied(res.getString("Pied"));
+            j.setImageJoueur1(res.getString("ImageJoueur1"));
+            j.setImageJoueur2(res.getString("ImageJoueur2"));
+            j.setImageJoueur3(res.getString("ImageJoueur3"));
+            j.setDescription(res.getString("Description"));
+            Statement d = cnx.createStatement();
+            ResultSet p = d.executeQuery("select * from equipe where IDEquipe=" + res.getInt("ID_Equipe"));
+            Equipe e = new Equipe();
+            while (p.next()) {
+                e.setNom(p.getString("Nom"));
+                e.setCapital(p.getString("Capital"));
+                e.setParticipations(p.getInt("Participations"));
+                e.setContinent(p.getString("Continent"));
+                e.setVictoires(p.getInt("Victoires"));
+                e.setEntraineur(p.getString("Entraineur"));
+                e.setClassementFifa(p.getInt("Classementfifa"));
+                e.setMatchesCM(p.getInt("MatchesCM"));
+                e.setButsCM(p.getInt("ButsCM"));
+                e.setMatchVictoires(p.getInt("MatchWins"));
+                e.setMatchDefaites(p.getInt("MatchLosses"));
+                e.setMatchNulles(p.getInt("MatchDraws"));
+                e.setDrapeau(p.getString("Drapeau"));
+                e.setPhotoEquipe(p.getString("PhotoEquipe"));
+                e.setLogoFederation(p.getString("LogoFederation"));
+                e.setGroupe(p.getString("Groupe"));
+                e.setDescription(p.getString("Description"));
+            }
+
+            j.setIdEquipe(e);
+
+        }
+        return j;
+    }
+
+    public List<Joueur> rechercher(String nom) throws SQLException
+    {   
+         String requetes = "select joueur.* from Joueur inner join Equipe on joueur.ID_Equipe=Equipe.IDEquipe where joueur.nom like ? or equipe.nom like ? or joueur.prenom like ?";
+        PreparedStatement pst = cnx.prepareStatement(requetes);
+        pst.setString(1,"%"+nom+"%");
+                pst.setString(2,"%"+nom+"%");
+ pst.setString(3,"%"+nom+"%");
+        List<Joueur> gg=new ArrayList();
+        ResultSet res = pst.executeQuery();
+        while (res.next())
+        {
+            Joueur j=new Joueur();
+          j.setNom(res.getString("nom"));
+            j.setPrenom(res.getString("Prenom"));
+            j.setNumero(res.getInt("Numero"));
+            j.setLieuNaissance(res.getString("LieuNaissance"));
+            j.setDateNaissance(res.getDate("Datedenaissance"));
+            j.setTaille(res.getInt("Taille"));
+            j.setPoids(res.getInt("Poids"));
+            j.setNationalite(res.getString("Nationalite"));
+            j.setPoste1(res.getString("Poste1"));
+            j.setCout(res.getInt("Cout"));
+            j.setButs(res.getInt("Buts"));
+            j.setSelections(res.getInt("Selections"));
+            j.setParticipations(res.getInt("Participations"));
+            j.setPied(res.getString("Pied"));
+            j.setImageJoueur1(res.getString("ImageJoueur1"));
+            j.setImageJoueur2(res.getString("ImageJoueur2"));
+            j.setImageJoueur3(res.getString("ImageJoueur3"));
+            j.setDescription(res.getString("Description"));  
+               Statement d = cnx.createStatement();
+            ResultSet p = d.executeQuery("select * from equipe where IDEquipe=" + res.getInt("ID_Equipe"));
+            Equipe e = new Equipe();
+            while (p.next()) {
+                e.setNom(p.getString("Nom"));
+                e.setCapital(p.getString("Capital"));
+                e.setParticipations(p.getInt("Participations"));
+                e.setContinent(p.getString("Continent"));
+                e.setVictoires(p.getInt("Victoires"));
+                e.setEntraineur(p.getString("Entraineur"));
+                e.setClassementFifa(p.getInt("Classementfifa"));
+                e.setMatchesCM(p.getInt("MatchesCM"));
+                e.setButsCM(p.getInt("ButsCM"));
+                e.setMatchVictoires(p.getInt("MatchWins"));
+                e.setMatchDefaites(p.getInt("MatchLosses"));
+                e.setMatchNulles(p.getInt("MatchDraws"));
+                e.setDrapeau(p.getString("Drapeau"));
+                e.setPhotoEquipe(p.getString("PhotoEquipe"));
+                e.setLogoFederation(p.getString("LogoFederation"));
+                e.setGroupe(p.getString("Groupe"));
+                e.setDescription(p.getString("Description"));
+            }
+
+            j.setIdEquipe(e);
+            gg.add(j);
+        }
+      return gg;  
+    }
 }

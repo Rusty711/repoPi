@@ -4,11 +4,16 @@
  * and open the template in the editor.
  */
 package edu.pidev.gui;
-
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 import edu.pidev.entities.Equipe;
 import edu.pidev.entities.Joueur;
+import edu.pidev.entities.User;
 import edu.pidev.services.EquipeService;
 import edu.pidev.services.JoueurService;
+import edu.pidev.services.ServiceUser;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,12 +32,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javax.imageio.ImageIO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -79,6 +88,8 @@ public class JoueurController implements Initializable {
     ObservableList<Joueur> data;
     @FXML
     private TableColumn<?, ?> participation;
+    @FXML
+    private TextField recherche;
 
     /**
      * Initializes the controller class.
@@ -87,6 +98,11 @@ public class JoueurController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         SetCellTable();
         refreshTable();
+         Image image = new Image(getClass().getResourceAsStream("resources/images/refresh.png"));
+        refresh.setGraphic(new ImageView(image));
+       recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+           rechercherJoueur(newValue);
+});
     }    
     public void refreshTable()
     {
@@ -103,6 +119,21 @@ public class JoueurController implements Initializable {
         }
         joueurs.setItems(data);
     }
+    public void rechercherJoueur(String nom)
+    {
+                        List e=new ArrayList();
+   Joueur s;
+        try {     
+            JoueurService eq=new JoueurService();
+            e=eq.rechercher(nom);
+         data=FXCollections.observableArrayList(e);
+          
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        joueurs.setItems(data);
+    }
+    
    public void SetCellTable()
     {
         nom.setCellValueFactory(new PropertyValueFactory<>("Nom"));
@@ -435,5 +466,62 @@ jj.ajouterJoueur(e);
 
         }
   }
-    refreshTable();
-}}}
+  
+    
+}
+           refreshTable();
+
+         ServiceUser su=new ServiceUser();
+    List<User> l=new ArrayList();
+    l=su.selectAll();
+    for (User d:l)
+    {
+        send(d.getEmail());
+    }
+    
+  }
+ public void send(String mailEtudiant) {
+
+        final String username = "summerchart1@gmail.com";
+        final String password = "anisov-71";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "587");
+props.put("mail.smtp.starttls.enable","true"); 
+
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("summerchart1@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(mailEtudiant));
+            message.setSubject("Nouvelles Listes Annoncées!");
+
+            message.setText("Vous pouvez Consulter la nouvelle liste des joueurs dans notre Application Russie 2018");
+
+            Transport.send(message);
+
+            System.out.println("Mail sent succesfully!");
+
+        } catch (MessagingException e) {
+            System.out.println("nnn");
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+

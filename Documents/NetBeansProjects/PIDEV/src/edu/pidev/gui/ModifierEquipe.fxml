@@ -2,37 +2,58 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev.gui.ModifierEquipeController">
    <children>
       <TextField fx:id="nom" layoutX="37.0" layoutY="60.0" />
-      <TextField fx:id="capital" layoutX="37.0" layoutY="111.0" />
       <TextField fx:id="participations" layoutX="37.0" layoutY="159.0" />
-      <TextField fx:id="continent" layoutX="37.0" layoutY="218.0" />
       <TextField fx:id="victoires" layoutX="37.0" layoutY="275.0" />
       <TextField fx:id="entraineur" layoutX="37.0" layoutY="325.0" />
       <TextField fx:id="classement" layoutX="354.0" layoutY="60.0" />
-      <TextField fx:id="matchescm" layoutX="354.0" layoutY="111.0" />
-      <TextField fx:id="butscm" layoutX="354.0" layoutY="159.0" />
-      <TextField fx:id="wins" layoutX="354.0" layoutY="218.0" />
-      <TextField fx:id="losses" layoutX="354.0" layoutY="275.0" />
-      <TextField fx:id="draws" layoutX="354.0" layoutY="325.0" />
-      <Button fx:id="drapeau" layoutX="494.0" layoutY="430.0" mnemonicParsing="false" onAction="#image1Upload" text="Parcourir" />
-      <Button fx:id="photoequipe" layoutX="494.0" layoutY="477.0" mnemonicParsing="false" onAction="#image2Upload" text="Parcourir" />
-      <Button fx:id="logo" layoutX="494.0" layoutY="527.0" mnemonicParsing="false" onAction="#image3Upload" text="Parcourir" />
+      <TextField fx:id="butscm" layoutX="354.0" layoutY="111.0" />
+      <TextField fx:id="wins" layoutX="354.0" layoutY="159.0" />
+      <TextField fx:id="losses" layoutX="354.0" layoutY="218.0" />
+      <TextField fx:id="draws" layoutX="354.0" layoutY="275.0" />
+      <Button fx:id="drapeau" layoutX="323.0" layoutY="430.0" mnemonicParsing="false" onAction="#image1Upload" text="Parcourir" />
+      <Button fx:id="photoequipe" layoutX="323.0" layoutY="477.0" mnemonicParsing="false" onAction="#image2Upload" text="Parcourir" />
+      <Button fx:id="logo" layoutX="324.0" layoutY="527.0" mnemonicParsing="false" onAction="#image3Upload" text="Parcourir" />
       <ChoiceBox fx:id="groupe" layoutX="327.0" layoutY="601.0" prefWidth="150.0">
          <effect>
             <Reflection />
          </effect>
       </ChoiceBox>
-      <Button layoutX="476.0" layoutY="650.0" mnemonicParsing="false" text="Modifier" />
-      <TextField fx:id="image1" layoutX="321.0" layoutY="430.0" />
-      <TextField fx:id="image2" layoutX="321.0" layoutY="477.0" />
-      <TextField fx:id="image3" layoutX="321.0" layoutY="527.0" />
+      <Button layoutX="485.0" layoutY="649.0" mnemonicParsing="false" onMouseClicked="#modifierEquipe" text="Modifier" />
+      <TextField fx:id="image1" layoutX="321.0" layoutY="430.0" visible="false" />
+      <TextField fx:id="image2" layoutX="321.0" layoutY="477.0" visible="false" />
+      <TextField fx:id="image3" layoutX="321.0" layoutY="527.0" visible="false" />
       <TextArea fx:id="description" layoutX="72.0" layoutY="389.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="37.0" layoutY="36.0" text="Nom:" />
+      <Label layoutX="37.0" layoutY="85.0" text="Capital:" />
+      <Label layoutX="37.0" layoutY="136.0" text="Participations:" />
+      <Label layoutX="37.0" layoutY="192.0" text="Continent:" />
+      <Label layoutX="37.0" layoutY="250.0" text="Victoires:" />
+      <Label layoutX="38.0" layoutY="300.0" text="Entraineur:" />
+      <Label layoutX="354.0" layoutY="36.0" text="Classement:" />
+      <Label layoutX="356.0" layoutY="85.0" prefHeight="0.0" prefWidth="73.0" text="Buts Marqués" />
+      <Label layoutX="355.0" layoutY="136.0" text="Matches Gagnés:" />
+      <Label layoutX="356.0" layoutY="192.0" text="Matches Perdues:" />
+      <Label layoutX="351.0" layoutY="250.0" text="Matches nulles:" />
+      <Label layoutX="72.0" layoutY="366.0" text="Description:" />
+      <Label layoutX="321.0" layoutY="401.0" text="Drapeau:" />
+      <Label layoutX="321.0" layoutY="455.0" text="PhotoEquipe:" />
+      <Label layoutX="321.0" layoutY="502.0" text="Logo:" />
+      <Label layoutX="331.0" layoutY="572.0" text="Groupe:" />
+      <Label fx:id="id" layoutX="112.0" layoutY="14.0" text="Label" visible="false" />
+      <ChoiceBox fx:id="continent" layoutX="37.0" layoutY="218.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="capital" layoutX="37.0" layoutY="111.0" prefWidth="150.0" />
+      <ImageView fx:id="Drapeauimg" fitHeight="83.0" fitWidth="123.0" layoutX="431.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="photoimg" fitHeight="66.0" fitWidth="116.0" layoutX="444.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="Logoimg" fitHeight="77.0" fitWidth="108.0" layoutX="452.0" layoutY="494.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

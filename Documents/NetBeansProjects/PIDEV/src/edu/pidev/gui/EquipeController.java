@@ -8,6 +8,7 @@ package edu.pidev.gui;
 import com.jfoenix.controls.JFXButton;
 import edu.pidev.entities.Equipe;
 import edu.pidev.services.EquipeService;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +34,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -79,6 +83,10 @@ public class EquipeController implements Initializable {
     @FXML
     private TableColumn<?, ?> description;
     ObservableList<Equipe> data;
+    @FXML
+    private TableColumn<?, ?> id;
+    @FXML
+    private Button Actualiser;
     
 
     /**
@@ -99,8 +107,18 @@ public class EquipeController implements Initializable {
       matchesd.setCellValueFactory(new PropertyValueFactory<>("MatchDefaites"));
       matchesn.setCellValueFactory(new PropertyValueFactory<>("MatchNulles"));
       description.setCellValueFactory(new PropertyValueFactory<>("Description"));
+            id.setCellValueFactory(new PropertyValueFactory<>("IDEquipe"));
+
     }
     public void initialize(URL url, ResourceBundle rb) {
+
+         Image image = new Image(getClass().getResourceAsStream("resources/images/plus.png"));
+        Update.setGraphic(new ImageView(image));
+         Image imagee = new Image(getClass().getResourceAsStream("resources/images/rotation.png"));
+        edit.setGraphic(new ImageView(imagee));
+         Actualiser.setGraphic(new ImageView(imagee));
+         Image imageee = new Image(getClass().getResourceAsStream("resources/images/button.png"));
+        Supprimer.setGraphic(new ImageView(imageee));
         SetCellTable();
         List e=new ArrayList();
         Equipe s;
@@ -144,7 +162,7 @@ alert.setHeaderText("est ce que vous voulez vraiment supprimer l'equipe "+e.getN
 Optional<ButtonType> result = alert.showAndWait();
 if (result.get()==ButtonType.OK)
 {
-         s.supprimerEquipe(e.getNom());
+         s.supprimerEquipe(e.getIdEquipe());
          refreshTable();
 
 }
@@ -167,7 +185,7 @@ else
           Stage Stages = new Stage();
 
                         e=EquipesTable.getSelectionModel().getSelectedItem();
-                            ModifierEquipeController ss=new ModifierEquipeController();
+                            ModifierEquipeController ss=loader.getController();
                
                        ss.setNom(e.getNom());
                        ss.setCapital(e.getCapital());
@@ -176,14 +194,20 @@ else
                        ss.setVictoires(Integer.toString(e.getVictoires()));
                        ss.setEntraineur(e.getEntraineur());
                        ss.setClassement(Integer.toString(e.getClassementFifa()));
-                       ss.setMatchescm(Integer.toString(e.getMatchesCM()));
                        ss.setButscm(Integer.toString(e.getButsCM()));
                        ss.setWins(Integer.toString(e.getMatchVictoires()));
                        ss.setLosses(Integer.toString(e.getMatchDefaites()));
                        ss.setDraws(Integer.toString(e.getMatchNulles()));
                        ss.setDescription(e.getDescription());
-                       
-                 
+                       ss.setImage1(e.getDrapeau());
+                       ss.setImage2(e.getPhotoEquipe());
+                       ss.setImage3(e.getLogoFederation());
+                       ss.setGroupe(e.getGroupe());
+                       ss.setId(Integer.toString(e.getIdEquipe()));
+                       ss.setDrapeauimg(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+e.getDrapeau())));
+                                        ss.setPhotoimg(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+e.getPhotoEquipe())));
+                                        ss.setLogoimg(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+e.getLogoFederation())));
+
 Stages.setScene(scene);
 Stages.show();            
  
@@ -206,6 +230,11 @@ Stages.show();
 
     public TableView<Equipe> getEquipesTable() {
         return EquipesTable;
+    }
+
+    @FXML
+    private void Actualisation(ActionEvent event) {
+        refreshTable();
     }
     
     

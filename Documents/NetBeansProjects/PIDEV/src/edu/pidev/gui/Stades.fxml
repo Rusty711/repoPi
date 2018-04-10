@@ -6,11 +6,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev.gui.StadesController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1024.0" stylesheets="@Stade.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev.gui.StadesController">
    <children>
-      <TableView fx:id="stades" layoutX="83.0" layoutY="55.0" onMouseClicked="#modifierStade" prefHeight="345.0" prefWidth="634.0">
+      <TableView fx:id="stades" layoutX="83.0" layoutY="55.0" onMouseClicked="#modifierStade" prefHeight="345.0" prefWidth="635.0">
         <columns>
           <TableColumn fx:id="nomcol" prefWidth="75.0" text="Nom" />
           <TableColumn fx:id="villecol" prefWidth="75.0" text="ville" />
@@ -20,6 +21,7 @@
             <TableColumn fx:id="toitcol" prefWidth="75.0" text="Toit" />
             <TableColumn fx:id="adressecol" prefWidth="75.0" text="Adresse" />
             <TableColumn fx:id="surfacecol" prefWidth="108.0" text="Surface" />
+            <TableColumn fx:id="idstade" prefWidth="75.0" text="ID" visible="false" />
         </columns>
       </TableView>
       <TextField fx:id="nom" layoutX="41.0" layoutY="461.0" />
@@ -40,11 +42,12 @@
       <Button fx:id="ajouter" layoutX="400.0" layoutY="591.0" mnemonicParsing="false" onAction="#ajouterStade" text="Ajouter" />
       <Button fx:id="modifier" layoutX="476.0" layoutY="591.0" mnemonicParsing="false" onAction="#modifierStade2" text="Modifier" />
       <Button fx:id="supprimer" layoutX="564.0" layoutY="591.0" mnemonicParsing="false" onAction="#SupprimerStade" text="Supprimer" />
-      <Button fx:id="parcourir" layoutX="209.0" layoutY="579.0" mnemonicParsing="false" onAction="#image3Upload" text="Parcourir" />
-      <TextField fx:id="photostade" layoutX="41.0" layoutY="579.0" />
+      <Button fx:id="parcourir" layoutX="42.0" layoutY="579.0" mnemonicParsing="false" onAction="#image3Upload" text="Parcourir" />
+      <TextField fx:id="photostade" layoutX="41.0" layoutY="579.0" visible="false" />
       <Label layoutX="41.0" layoutY="562.0" text="Photo Stade" />
       <ChoiceBox fx:id="ville" layoutX="41.0" layoutY="522.0" prefWidth="150.0" />
       <ChoiceBox fx:id="surface" layoutX="615.0" layoutY="522.0" prefWidth="150.0" />
-      <TextField fx:id="id" cache="true" layoutX="74.0" layoutY="412.0" opacity="0.0" />
+      <TextField fx:id="id" layoutX="83.0" layoutY="412.0" visible="false" />
+      <ImageView fx:id="std" fitHeight="107.0" fitWidth="236.0" layoutX="116.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

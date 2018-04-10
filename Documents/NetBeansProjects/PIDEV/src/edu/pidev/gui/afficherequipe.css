@@ -3,10 +3,11 @@
  */
 
 .mainFxmlClass {
-
+   -fx-font-family: 'Futura Condensed';
 }
 .button
 {
            -fx-background-image:url("resources/images/russia.jpg");
+        
 
 }

@@ -49,6 +49,7 @@ public class StadeService {
         while(res.next())
         {
             Stade s=new Stade();
+            s.setIdStade(res.getInt("Id_Stade"));
             s.setNom(res.getString("Nom"));
             s.setVille(res.getString("ville"));
             s.setCapacite(res.getInt("capacite"));
@@ -87,12 +88,12 @@ public class StadeService {
                       pst.executeUpdate();
 
      }
-     public Stade rechercherStadeParNom(String nom) throws SQLException
+     public Stade rechercherStadeParId(int id) throws SQLException
      {
          Stade s=new Stade();
-            String requet="select * from Stade where nom=?";
+            String requet="select * from Stade where ID_Stade=?";
            PreparedStatement pst=cnx.prepareStatement(requet);
-           pst.setString(1,nom);
+           pst.setInt(1,id);
            ResultSet res=pst.executeQuery();
            while (res.next())
            {
@@ -108,5 +109,17 @@ public class StadeService {
             s.setSurface(res.getString("Surface"));
            }
            return s;
+     }
+     public int countStades() throws SQLException
+     {
+         int nbr=0;
+       String requete="select count(*) as nbr from stade ";
+                   Statement x=cnx.createStatement();
+ResultSet v=x.executeQuery(requete);
+while (v.next())
+{
+    nbr=v.getInt("nbr");
+}
+return nbr;
      }
 }

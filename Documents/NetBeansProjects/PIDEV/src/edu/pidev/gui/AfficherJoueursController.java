@@ -165,8 +165,10 @@ public class AfficherJoueursController implements Initializable {
     }
 public void ChangedTeam(String Nom) throws SQLException
 {
-    
-           paginator.setPageCount(24/6);
+    EquipeService es=new EquipeService();
+    int sizee;
+    sizee=es.countJoueur(Nom);
+           paginator.setPageCount(sizee/6);
          
    paginator.setPageFactory(new Callback<Integer, Node>() {
             @Override
@@ -177,7 +179,7 @@ public void ChangedTeam(String Nom) throws SQLException
             }
         });
    
-           paginator=new Pagination(24/6,0);
+           paginator=new Pagination(sizee/6,0);
         noChange();
            page.textProperty().addListener((observable, oldValue, newValue) -> {
                        List<Joueur> list=new ArrayList();
@@ -271,7 +273,7 @@ public void ChangedTeam(String Nom) throws SQLException
     }
    public void showPlayers(List<Joueur> list,int min) throws FileNotFoundException
    {
-    
+    System.out.println("miin"+min);
         Image im1=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min).getImageJoueur1()),520,300,false,false);
        
                     eq1img.setImage(im1);
@@ -306,7 +308,7 @@ public void ChangedTeam(String Nom) throws SQLException
          je.setDescription(list.get(min).getDescription());
          System.out.println(list.get(min).getDescription());
         try {
-            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min).getImageJoueur2()),5000,1000,false,false));
+            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(min).getIdEquipe().getPhotoEquipe()),5000,1000,false,false));
             je.setImg3(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min).getImageJoueur3()),520,300,false,false));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AfficherJoueursController.class.getName()).log(Level.SEVERE, null, ex);
@@ -316,7 +318,7 @@ public void ChangedTeam(String Nom) throws SQLException
     }
 });
                    
-                    nomeq1.setText(list.get(min).getNom());
+                    nomeq1.setText(list.get(min).getNom()+" "+list.get(min).getPrenom());
                     drapeq1.setText(Integer.toString(list.get(min).getNumero()));
                           Image im3=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+1).getImageJoueur1()),520,300,false,false);
                     eq2img.setImage(im3);
@@ -351,7 +353,7 @@ public void ChangedTeam(String Nom) throws SQLException
          je.setDescription(list.get(min+1).getDescription());
          System.out.println(list.get(min+1).getDescription());
         try {
-            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+1).getImageJoueur2()),5000,1000,false,false));
+            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(min+1).getIdEquipe().getPhotoEquipe()),5000,1000,false,false));
             je.setImg3(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+1).getImageJoueur3()),520,300,false,false));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AfficherJoueursController.class.getName()).log(Level.SEVERE, null, ex);
@@ -360,7 +362,7 @@ public void ChangedTeam(String Nom) throws SQLException
           
     }
 });
-                    nomeq2.setText(list.get(min+1).getNom());
+                    nomeq2.setText(list.get(min+1).getNom()+" "+list.get(min+1).getPrenom());
                     drapeq2.setText(Integer.toString(list.get(min+1).getNumero()));
                           Image im5=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+2).getImageJoueur1()),520,300,false,false);
                                butj3.setOnAction(new EventHandler<ActionEvent>() {
@@ -394,7 +396,7 @@ public void ChangedTeam(String Nom) throws SQLException
          je.setDescription(list.get(min+2).getDescription());
          System.out.println(list.get(min+2).getDescription());
         try {
-            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+2).getImageJoueur2()),5000,1000,false,false));
+            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(min+2).getIdEquipe().getPhotoEquipe()),5000,1000,false,false));
             je.setImg3(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+2).getImageJoueur3()),520,300,false,false));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AfficherJoueursController.class.getName()).log(Level.SEVERE, null, ex);
@@ -405,7 +407,7 @@ public void ChangedTeam(String Nom) throws SQLException
 });
                           eq3img.setImage(im5);
                    
-                    nomeq3.setText(list.get(min+2).getNom());
+                    nomeq3.setText(list.get(min+2).getNom()+" "+list.get(min+2).getPrenom());
                     drapeq3.setText(Integer.toString(list.get(min+2).getNumero()));
                           Image im7=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+3).getImageJoueur1()),520,300,false,false);
                                  butj4.setOnAction(new EventHandler<ActionEvent>() {
@@ -439,7 +441,7 @@ public void ChangedTeam(String Nom) throws SQLException
          je.setDescription(list.get(min+3).getDescription());
          System.out.println(list.get(min+3).getDescription());
         try {
-            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+3).getImageJoueur2()),5000,1000,false,false));
+            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(min+3).getIdEquipe().getPhotoEquipe()),5000,1000,false,false));
             je.setImg3(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+3).getImageJoueur3()),520,300,false,false));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AfficherJoueursController.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,10 +452,23 @@ public void ChangedTeam(String Nom) throws SQLException
 });
                           eq4img.setImage(im7);
                 
-                    nomeq4.setText(list.get(min+3).getNom());
+                    nomeq4.setText(list.get(min+3).getNom()+" "+list.get(min+3).getPrenom());
                     drapeq4.setText(Integer.toString(list.get(min+3).getNumero()));
+                    if (list.size()==22 && min==18)
+                    {
+                        div1111.setVisible(false);
+                    }
+                    else
+                    {
+                                                div1111.setVisible(true);
+
                     Image im8=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+4).getImageJoueur1()),520,300,false,false);
-                                butj5.setOnAction(new EventHandler<ActionEvent>() {
+                               
+                    eq5img.setImage(im8);
+                    
+                    nomeq5.setText(list.get(min+4).getNom()+" "+list.get(min+4).getPrenom());
+                    drapeq5.setText(Integer.toString(list.get(min+4).getNumero()));
+                butj5.setOnAction(new EventHandler<ActionEvent>() {
     @Override public void handle(ActionEvent e) {
              
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("JoueurDetails.fxml"));
@@ -484,7 +499,7 @@ public void ChangedTeam(String Nom) throws SQLException
          je.setDescription(list.get(min+4).getDescription());
          System.out.println(list.get(min+4).getDescription());
         try {
-            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+4).getImageJoueur2()),5000,1000,false,false));
+            je.setImage1(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Equipes\\"+list.get(min+4).getIdEquipe().getPhotoEquipe()),5000,1000,false,false));
             je.setImg3(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+4).getImageJoueur3()),520,300,false,false));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AfficherJoueursController.class.getName()).log(Level.SEVERE, null, ex);
@@ -493,12 +508,23 @@ public void ChangedTeam(String Nom) throws SQLException
           
     }
 });
-                    eq5img.setImage(im8);
-                    
-                    nomeq5.setText(list.get(min+4).getNom());
-                    drapeq5.setText(Integer.toString(list.get(min+4).getNumero()));
-                    Image im9=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+5).getImageJoueur1()),520,300,false,false);
-                                butj6.setOnAction(new EventHandler<ActionEvent>() {
+                    }
+                  if (((list.size()==23) ||(list.size()==22)) & min==18)
+                  {
+                      div11111.setVisible(false);
+                  }
+                  else
+                  {
+                                            div11111.setVisible(true);
+
+                           Image im9=new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+list.get(min+5).getImageJoueur1()),520,300,false,false);
+   
+                                
+                    eq6img.setImage(im9);
+             
+                    nomeq6.setText(list.get(min+5).getNom()+" "+list.get(min+5).getPrenom());
+                    drapeq6.setText(Integer.toString(list.get(min+5).getNumero()));
+                                                 butj6.setOnAction(new EventHandler<ActionEvent>() {
     @Override public void handle(ActionEvent e) {
              
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("JoueurDetails.fxml"));
@@ -512,7 +538,6 @@ public void ChangedTeam(String Nom) throws SQLException
           Stage Stages = new Stage();
           Stages.setScene(scene);
           JoueurDetailsController je=loader.getController();
-          
           je.setButs(Integer.toString(list.get(min+5).getButs()));
           je.setDate(list.get(min+5).getDateNaissance().toString());
           je.setLieu(list.get(min+5).getLieuNaissance());
@@ -538,10 +563,9 @@ public void ChangedTeam(String Nom) throws SQLException
           
     }
 });
-                    eq6img.setImage(im9);
-             
-                    nomeq6.setText(list.get(min+5).getNom());
-                    drapeq6.setText(Integer.toString(list.get(min+5).getNumero()));
+                                             
+                                
+                  }                       
        
    }
    public void noChange()

@@ -214,6 +214,31 @@ public class Joueur {
     public String toString() {
         return "Joueur{" + "idJoueur=" + idJoueur + ", nom=" + nom + ", Prenom=" + Prenom + ", numero=" + numero + ", dateNaissance=" + dateNaissance + ", lieuNaissance=" + lieuNaissance + ", taille=" + taille + ", poids=" + poids + ", nationalite=" + nationalite + ", poste1=" + poste1 + ", cout=" + cout + ", buts=" + buts + ", selections=" + selections + ", idEquipe=" + idEquipe + ", participations=" + participations + ", pied=" + pied + ", imageJoueur1=" + imageJoueur1 + ", imageJoueur2=" + imageJoueur2 + ", imageJoueur3=" + imageJoueur3 + ", butsMarque=" + butsMarque + ", description=" + description + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Joueur other = (Joueur) obj;
+        if (this.idJoueur != other.idJoueur) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

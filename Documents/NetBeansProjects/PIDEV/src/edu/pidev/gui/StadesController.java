@@ -9,7 +9,11 @@ import edu.pidev.entities.Equipe;
 import edu.pidev.entities.Stade;
 import edu.pidev.services.EquipeService;
 import edu.pidev.services.StadeService;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +36,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -88,6 +95,10 @@ public class StadesController implements Initializable {
     private TextField photostade;
     @FXML
     private TextField id;
+    @FXML
+    private TableColumn<?, ?> idstade;
+    @FXML
+    private ImageView std;
 
 
     /**
@@ -95,6 +106,12 @@ public class StadesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          Image image = new Image(getClass().getResourceAsStream("resources/images/plus.png"));
+        ajouter.setGraphic(new ImageView(image));
+         Image imagee = new Image(getClass().getResourceAsStream("resources/images/rotation.png"));
+        modifier.setGraphic(new ImageView(imagee));
+         Image imageee = new Image(getClass().getResourceAsStream("resources/images/button.png"));
+       supprimer.setGraphic(new ImageView(imageee));
         refreshTable();
       ObservableList l=(FXCollections.observableArrayList("Ekaterinburg"
         ,"Kaliningrad"
@@ -126,6 +143,7 @@ surface.setItems(lll);
       wificol.setCellValueFactory(new PropertyValueFactory<>("Wifi"));
       adressecol.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
       surfacecol.setCellValueFactory(new PropertyValueFactory<>("Surface"));
+      idstade.setCellValueFactory(new PropertyValueFactory<>("IdStade"));
 
     }
      public void refreshTable()
@@ -167,13 +185,18 @@ refreshTable();
 clearInputs();
      }
     @FXML
-           public void image3Upload(ActionEvent event)
+           public void image3Upload(ActionEvent event) throws IOException
     {
          FileChooser fc=new FileChooser();
             File Selectedfile=fc.showOpenDialog(null);
             if (Selectedfile!=null)
             {
-                photostade.setText(Selectedfile.getName());
+                           BufferedImage imgb3 = ImageIO.read(Selectedfile);
+        File file3 = new File("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+nom.getText()+".jpg");
+                std.setImage(new Image(new FileInputStream(Selectedfile.getAbsolutePath())));
+
+        ImageIO.write(imgb3, "jpg", file3);
+                photostade.setText(file3.getName());
             }
             else
             {
@@ -214,21 +237,25 @@ else
                
            }
     @FXML
-           public void modifierStade() throws SQLException
+           public void modifierStade() throws SQLException, FileNotFoundException
            {
                StadeService d=new StadeService();
                Stade v=new Stade();
+              
                v=stades.getSelectionModel().getSelectedItem();
-               v=d.rechercherStadeParNom(v.getNom());
+               System.out.println(v.getIdStade());
+         id.setText(Integer.toString(v.getIdStade()));
                nom.setText(v.getNom());
                adresse.setText(v.getAdresse());
                capacite.setText(Integer.toString(v.getCapacite()));
                toit.setValue(v.getToit());
                wifi.setValue(v.getWifi());
+               ville.setValue(v.getVille());
                photostade.setText(v.getPhotoStade());
                description.setText(v.getDescription());
                surface.setValue(v.getSurface());
                id.setText(Integer.toString(v.getIdStade()));
+               std.setImage(new Image(new FileInputStream("C:\\wamp64\\www\\PIDEV\\web\\uploads\\Joueurs\\"+v.getPhotoStade())));
                
            }
     @FXML
@@ -245,6 +272,7 @@ else
          s.setWifi(wifi.getValue());
          s.setPhotoStade(photostade.getText());
          s.setAdresse(adresse.getText());
+         
          StadeService ss=new StadeService();
          ss.modifierStade(s);
          Alert alert = new Alert(AlertType.INFORMATION);

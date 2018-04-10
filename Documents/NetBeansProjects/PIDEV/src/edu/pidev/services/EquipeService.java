@@ -15,6 +15,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  *
@@ -37,7 +40,7 @@ public class EquipeService {
                           pst.setInt(5,e.getVictoires());
                           pst.setString(6,e.getEntraineur());
                           pst.setInt(7,e.getClassementFifa());
-                          pst.setInt(8,e.getMatchesCM());
+                          pst.setInt(8,e.getMatchDefaites()+e.getMatchNulles()+e.getMatchVictoires());
                           pst.setInt(9,e.getButsCM());
                           pst.setInt(10,e.getMatchVictoires());
                           pst.setInt(11,e.getMatchDefaites());
@@ -84,11 +87,11 @@ public class EquipeService {
         }
         return l;
     }
-    public void supprimerEquipe(String nom) throws SQLException
+    public void supprimerEquipe(int id) throws SQLException
     {
-                    String requet="Delete from Equipe where nom=?";
+                    String requet="Delete from Equipe where IDEquipe=?";
            PreparedStatement pst=cnx.prepareStatement(requet);
-           pst.setString(1,nom);
+           pst.setInt(1,id);
            pst.executeUpdate();
     }
     public void modifierEquipe(Equipe e) throws SQLException
@@ -116,12 +119,21 @@ public class EquipeService {
                           pst.setInt(18,e.getIdEquipe());
                           
                                      pst.executeUpdate();
+                                           Notifications n=Notifications.create()
+                    .title("Modification d'equipe")
+                    .text("Modification avec Succes")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(5))
+                    .position(Pos.TOP_RIGHT);
+                    
+            n.darkStyle();
+            n.show();
     }
-    public Equipe rechercherparNom(String nom) throws SQLException
+    public Equipe rechercherparId(int id) throws SQLException
     {
-        String requet="select * from equipe nom=?";
+        String requet="select * from equipe where IDEquipe=?";
            PreparedStatement pst=cnx.prepareStatement(requet);
-           pst.setString(1,nom);
+           pst.setInt(1,id);
             ResultSet res=pst.executeQuery();
                             Equipe e=new Equipe();
 
@@ -200,5 +212,86 @@ public class EquipeService {
         }
         return l; 
     }
+    public ResultSet moyenneAge() throws SQLException
+    {
+                    Statement x=cnx.createStatement();
+List l=new ArrayList();
+        String requete="select avg(extract(year from sysdate())-extract(year from joueur.Datedenaissance)) as age,equipe.Nom as nom from joueur join equipe on joueur.ID_Equipe=equipe.IDEquipe group by ID_Equipe";
+        ResultSet res=x.executeQuery(requete);
+      return res;
+    }
+public ResultSet equipeParContinent() throws SQLException
+{
+     Statement x=cnx.createStatement();
+List l=new ArrayList();
+String requete="select sum(victoires) as somme,continent from equipe group by continent ";
+ResultSet res=x.executeQuery(requete);
+ return res;
+}
+public ResultSet equipepourcentageVictoires() throws SQLException
+{
+     Statement x=cnx.createStatement();
+     String requete="select (MatchWins*100)/matchescm as pour,nom from equipe";
+ResultSet res=x.executeQuery(requete);
+return res;
+}
+public ResultSet moyennetaille() throws SQLException 
+{
+     
+                    Statement x=cnx.createStatement();
+List l=new ArrayList();
+        String requete="select avg(taille) as taille,equipe.Nom as nom from joueur join equipe on joueur.ID_Equipe=equipe.IDEquipe group by ID_Equipe";
+        ResultSet res=x.executeQuery(requete);
+      return res;
+    
+}
+public ResultSet MoyenneCout() throws SQLException
+{                    Statement x=cnx.createStatement();
+
+            String requete="select avg(cout) as cout,equipe.Nom as nom from joueur join equipe on joueur.ID_Equipe=equipe.IDEquipe group by ID_Equipe";
+    ResultSet res=x.executeQuery(requete);
+      return res;
+}
+public boolean NomExiste(String nom) throws SQLException
+{
+    String requete="select * from Equipe where nom=? ";
+               PreparedStatement pst=cnx.prepareStatement(requete);
+              pst.setString(1,nom);
+              ResultSet res=pst.executeQuery();
+              return res.isBeforeFirst();
+            
+}
+public boolean classementExiste(int classement) throws SQLException
+{
+    String requete="select * from Equipe where ClassementFifa=? ";
+               PreparedStatement pst=cnx.prepareStatement(requete);
+              pst.setInt(1,classement);
+              ResultSet res=pst.executeQuery();
+              return res.isBeforeFirst();
+            
+}
+public boolean EntraineurExiste(String Entraineur) throws SQLException
+{
+    String requete="select * from Equipe where entraineur=? ";
+               PreparedStatement pst=cnx.prepareStatement(requete);
+              pst.setString(1,Entraineur);
+              ResultSet res=pst.executeQuery();
+              return res.isBeforeFirst();
+            
+}
+public int countJoueur(String Equipe) throws SQLException
+{
+     String requet="select count(*) as num from joueur inner join equipe on joueur.ID_Equipe=equipe.IDEquipe where equipe.nom=?";
+           PreparedStatement pst=cnx.prepareStatement(requet);
+           pst.setString(1,Equipe);
+           ResultSet d=pst.executeQuery();
+           int num=0;
+           while (d.next())
+           {
+               num=d.getInt("num");
+           }
+           return num;
+}
+
 
 }
